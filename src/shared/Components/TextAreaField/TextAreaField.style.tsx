@@ -5,7 +5,4 @@ export const TextAreaFieldWrapper = styled.div`
     justify-content: flex-end;
     padding: 10px;
   }
-  .MuiFormHelperText-root {
-    color: red;
-  }
 `;

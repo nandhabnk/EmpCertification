@@ -2,13 +2,9 @@ import { useDispatch } from "react-redux";
 
 import { Button, ButtonGroup } from "@mui/material";
 
-import {
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Textarea,
-  Typography,
-} from "@mui/joy";
+import InfoIcon from "@mui/icons-material/Info";
+
+import { FormControl, FormHelperText, FormLabel, Textarea } from "@mui/joy";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -43,34 +39,33 @@ const TextAreaField = ({
     const textAreaError = errors.purpose;
     if (textAreaError?.type === "required") return textAreaError.message;
     else if (textAreaError?.type === "minLength")
-      return "The purpose should have a minimun length of 50";
+      return "The purpose field should have a minimum of 50 characters";
     return "";
   };
 
   return (
     <Styled.TextAreaFieldWrapper>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl>
+        <FormControl error={errors.purpose ? true : false}>
           <FormLabel>{data[0]}:</FormLabel>
           <Textarea
-            error={errors.purpose ? true : false}
             id="purpose"
             defaultValue={data[1]}
             placeholder="Placeholder"
             minRows={3}
             size="md"
-            endDecorator={
-              <Typography level="body-xs" sx={{ ml: "auto" }}>
-                10 character(s)
-              </Typography>
-            }
             sx={{ minWidth: 300 }}
             {...register("purpose", {
               required: "The purpose field is required",
               minLength: 5,
             })}
           />
-          {errors && <FormHelperText>{fieldErrors()}</FormHelperText>}
+          {errors && (
+            <FormHelperText>
+              <InfoIcon />
+              {fieldErrors()}
+            </FormHelperText>
+          )}
           <ButtonGroup aria-label="Basic button group">
             <Button variant="contained" type="submit" color="success">
               Save

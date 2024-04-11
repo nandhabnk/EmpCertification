@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const CreateRequestPageWrapper = styled.div`
   .MuiGrid-root {
-    height: 94vh;
+    padding: 30px;
+    #create-request-heading {
+      background-color: #1976d2;
+      color: #fff;
+    }
   }
 `;

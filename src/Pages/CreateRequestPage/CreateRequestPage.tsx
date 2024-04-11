@@ -1,6 +1,7 @@
-import { Grid, Typography } from "@mui/material";
+import { Card, CardContent, Grid, Typography } from "@mui/material";
 
 import * as Styled from "./CreateRequestPage.style";
+import CreateForm from "./Components/CreateForm";
 
 const CreateRequestPage = () => {
   return (
@@ -11,9 +12,19 @@ const CreateRequestPage = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="h2" component="h2" textAlign={"center"}>
-          Create Request (Work in progress 🚧)
-        </Typography>
+        <Card variant="outlined">
+          <Typography
+            variant="h4"
+            component="h2"
+            textAlign={"center"}
+            id="create-request-heading"
+          >
+            Create request
+          </Typography>
+          <CardContent>
+            <CreateForm />
+          </CardContent>
+        </Card>
       </Grid>
     </Styled.CreateRequestPageWrapper>
   );
