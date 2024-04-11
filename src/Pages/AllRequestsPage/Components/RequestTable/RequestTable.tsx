@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Button,
@@ -19,13 +20,22 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import RequestDetails from "../RequestDetails";
 
-import { RequestData } from "../../../../shared/types/requestDetails";
+import {
+  RequestData,
+  RequestState,
+} from "../../../../shared/types/requestDetails";
+
+import { requestActions } from "../../../../store/request-slice";
 
 import * as Styled from "./RequestTable.style";
 
-const RequestTable = ({ tableData }: { tableData: Array<RequestData> }) => {
+const RequestTable = () => {
+  const { allRequests, currentRequest } = useSelector(
+    (state: { certificateReq: RequestState }) => state.certificateReq
+  );
   const [isOpen, setIsOpen] = useState(false);
-  const [currentRequest, setCurrentRequest] = useState({});
+
+  const dispatch = useDispatch();
 
   const tableHeadings = [
     "Reference No.",
@@ -36,7 +46,7 @@ const RequestTable = ({ tableData }: { tableData: Array<RequestData> }) => {
   ];
 
   const handleOpenDetails = (row: RequestData) => {
-    setCurrentRequest(row);
+    dispatch(requestActions.updateCurrentReq(row));
     setIsOpen(true);
   };
 
@@ -48,7 +58,7 @@ const RequestTable = ({ tableData }: { tableData: Array<RequestData> }) => {
     if (Object.keys(currentRequest).length > 0) {
       return (
         <Modal open={isOpen} onClose={handleCloseDetails}>
-          <RequestDetails currentRequest={currentRequest as RequestData} />
+          <RequestDetails />
         </Modal>
       );
     }
@@ -75,7 +85,7 @@ const RequestTable = ({ tableData }: { tableData: Array<RequestData> }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.map((row) => (
+              {allRequests.map((row: RequestData) => (
                 <TableRow
                   key={row.reference_no + row.issued_on}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

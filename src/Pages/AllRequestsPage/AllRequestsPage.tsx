@@ -1,15 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
+
+import { requestActions } from "../../store/request-slice";
 
 import { Grid } from "@mui/material";
 
 import RequestTable from "./Components/RequestTable";
 
+import { RequestState } from "../../shared/types/requestDetails";
+
 import * as Styled from "./AllRequestsPage.style";
 
 const AllRequestsPage = () => {
-  const [allRequests, setAllRequests] = useState();
+  const { allRequests } = useSelector(
+    (state: { certificateReq: RequestState }) => state.certificateReq
+  );
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -17,7 +26,7 @@ const AllRequestsPage = () => {
         const response = await axios(
           "https://zalexinc.azure-api.net/request-list?subscription-key=43b647491f1d436cb0130a329fcdca50"
         );
-        setAllRequests(response.data);
+        dispatch(requestActions.updateAllReq(response.data));
       } catch (err) {
         console.log("@#@# err", err);
       }
@@ -34,7 +43,7 @@ const AllRequestsPage = () => {
         alignItems="center"
         justifyContent="center"
       >
-        {allRequests && <RequestTable tableData={allRequests} />}
+        {allRequests && <RequestTable />}
       </Grid>
     </Styled.AllRequestsPageWrapper>
   );

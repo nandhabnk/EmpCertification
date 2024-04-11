@@ -1,31 +1,22 @@
+import { useSelector } from "react-redux";
+
 import { PDFViewer } from "@react-pdf/renderer";
 
 import { Box, Card, Grid, Typography, Divider, Stack } from "@mui/material";
 
 import InfoIcon from "@mui/icons-material/Info";
 
-import { RequestData } from "../../../../shared/types/requestDetails";
+import { RequestState } from "../../../../shared/types/requestDetails";
 import KeyValuePair from "../../../../shared/Components/KeyValuePair";
 
 import RequestPdfDoc from "../RequestPdfDoc";
 
 import * as Styled from "./RequestDetails.style";
 
-const RequestDetails = ({
-  currentRequest,
-}: {
-  currentRequest: RequestData;
-}) => {
-  const sortedCurrentRequest = ({
-    reference_no,
-    address_to,
-    purpose,
-    issued_on,
-    status,
-  }: RequestData) => {
-    const issuedOn = status.toLocaleLowerCase() === "done" ? { issued_on } : {};
-    return { reference_no, address_to, purpose, ...issuedOn, status };
-  };
+const RequestDetails = () => {
+  const { currentRequest } = useSelector(
+    (state: { certificateReq: RequestState }) => state.certificateReq
+  );
   return (
     <Styled.RequestDetailsWrapper>
       <Card variant="outlined">
@@ -45,14 +36,12 @@ const RequestDetails = ({
             padding={"10px"}
           >
             <Grid item xs={6}>
-              {Object.entries(sortedCurrentRequest(currentRequest)).map(
-                (data) => (
-                  <div key={data[0]}>
-                    <KeyValuePair data={data} />
-                    <Divider />
-                  </div>
-                )
-              )}
+              {Object.entries(currentRequest).map((data) => (
+                <div key={data[0]}>
+                  <KeyValuePair data={data} />
+                  <Divider />
+                </div>
+              ))}
             </Grid>
             <Grid item xs={4} alignContent="space-around">
               {currentRequest.status.toLowerCase() === "done" ? (

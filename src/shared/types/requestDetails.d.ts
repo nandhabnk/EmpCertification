@@ -5,3 +5,8 @@ export type RequestData = {
   issued_on: string;
   status: string;
 };
+
+export type RequestState = {
+  allRequests: Array<RequestData>;
+  currentRequest: RequestData;
+};

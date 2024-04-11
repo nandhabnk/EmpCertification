@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import ErrorComponent from "./Components/ErrorComponent";
 import NavHeader from "./Components/NavHeader";
@@ -8,6 +9,8 @@ import NavHeader from "./Components/NavHeader";
 import HomePage from "./Pages/HomePage";
 import CreateRequestPage from "./Pages/CreateRequestPage";
 import AllRequestsPage from "./Pages/AllRequestsPage";
+
+import store from "./store";
 
 const Layout = () => {
   return (
@@ -46,6 +49,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
