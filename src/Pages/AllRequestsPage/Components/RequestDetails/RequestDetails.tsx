@@ -17,6 +17,13 @@ const RequestDetails = () => {
   const { currentRequest } = useSelector(
     (state: { certificateReq: RequestState }) => state.certificateReq
   );
+  const keyValueData = () => {
+    const tempReq = { ...currentRequest };
+    if (currentRequest.status.toLowerCase() !== "done")
+      delete tempReq.issued_on;
+    return tempReq;
+  };
+
   return (
     <Styled.RequestDetailsWrapper>
       <Card variant="outlined">
@@ -36,7 +43,7 @@ const RequestDetails = () => {
             padding={"10px"}
           >
             <Grid item xs={6}>
-              {Object.entries(currentRequest).map((data) => (
+              {Object.entries(keyValueData()).map((data) => (
                 <div key={data[0]}>
                   <KeyValuePair data={data} status={currentRequest.status} />
                   <Divider />

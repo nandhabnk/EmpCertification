@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -14,6 +14,7 @@ import {
   TableRow,
   Typography,
   Modal,
+  TableSortLabel,
 } from "@mui/material";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -24,6 +25,8 @@ import {
   RequestData,
   RequestState,
 } from "../../../../shared/types/requestDetails";
+import { dateFormatter } from "../../../../shared/utils/tableUtils";
+import { tableHeadings } from "../../../../shared/contants";
 
 import { requestActions } from "../../../../store/request-slice";
 
@@ -34,16 +37,42 @@ const RequestTable = () => {
     (state: { certificateReq: RequestState }) => state.certificateReq
   );
   const [isOpen, setIsOpen] = useState(false);
+  const [orderBy, setOrderBy] = useState<keyof RequestData>("status");
+  const [order, setOrder] = useState<"asc" | "desc" | undefined>("asc");
 
   const dispatch = useDispatch();
 
-  const tableHeadings = [
-    "Reference No.",
-    "Address to",
-    "Purpose",
-    "Issued on",
-    "Status",
-  ];
+  const handleRequestSort = (property: keyof RequestData) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
+
+  const sortedData = useMemo(() => {
+    let sorted = allRequests.map((request: RequestData) => {
+      return { ...request, issued_on: new Date(request.issued_on as string) };
+    });
+    if (orderBy) {
+      sorted.sort((a, b) => {
+        const isDesc = order === "desc";
+        if (a[orderBy] < b[orderBy]) {
+          return isDesc ? 1 : -1;
+        }
+        if (a[orderBy] > b[orderBy]) {
+          return isDesc ? -1 : 1;
+        }
+        return 0;
+      });
+    }
+
+    console.log("@#@# SORTED AF", sorted);
+    return sorted.map((request: RequestData) => {
+      return {
+        ...request,
+        issued_on: dateFormatter(request.issued_on as Date),
+      };
+    });
+  }, [allRequests, orderBy, order]);
 
   const handleOpenDetails = (row: RequestData) => {
     dispatch(requestActions.updateCurrentReq(row));
@@ -79,13 +108,28 @@ const RequestTable = () => {
           <Table sx={{ minWidth: 650 }}>
             <TableHead>
               <TableRow>
-                {tableHeadings.map((heading) => (
-                  <TableCell key={heading}>{heading}</TableCell>
-                ))}
+                {tableHeadings.map((heading) => {
+                  if (heading === "Issued on" || heading === "Status") {
+                    const headingId =
+                      heading === "Issued on" ? "issued_on" : "status";
+                    return (
+                      <TableCell key={heading}>
+                        <TableSortLabel
+                          active={orderBy === headingId}
+                          direction={orderBy === headingId ? order : "asc"}
+                          onClick={() => handleRequestSort(headingId)}
+                        >
+                          {heading}
+                        </TableSortLabel>
+                      </TableCell>
+                    );
+                  }
+                  return <TableCell key={heading}>{heading}</TableCell>;
+                })}
               </TableRow>
             </TableHead>
             <TableBody>
-              {allRequests.map((row: RequestData) => (
+              {sortedData.map((row: RequestData) => (
                 <TableRow
                   key={row.reference_no + row.status}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -95,7 +139,7 @@ const RequestTable = () => {
                   </TableCell>
                   <TableCell>{row.address_to}</TableCell>
                   <TableCell>{row.purpose}</TableCell>
-                  <TableCell>{row.issued_on}</TableCell>
+                  <TableCell>{row.issued_on as string}</TableCell>
                   <TableCell>
                     <Stack
                       direction="row"

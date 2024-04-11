@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import axios from "axios";
 
 import { Alert, Card, CardContent, Grid, Typography } from "@mui/material";
@@ -7,10 +9,11 @@ import CheckIcon from "@mui/icons-material/Check";
 import CreateForm from "./Components/CreateForm";
 
 import { RequestBody } from "../../shared/types/requestDetails";
+import { apiKey } from "../../shared/contants";
+
+import BackdropOverlay from "../../shared/Components/BackdropOverlay";
 
 import * as Styled from "./CreateRequestPage.style";
-import { useState } from "react";
-import BackdropOverlay from "../../shared/Components/BackdropOverlay";
 
 const CreateRequestPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +26,7 @@ const CreateRequestPage = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "https://zalexinc.azure-api.net/request-certificate?subscription-key=43b647491f1d436cb0130a329fcdca50",
+        `https://zalexinc.azure-api.net/request-certificate?subscription-key=${apiKey}`,
         reqBody
       );
       if (response.data.responce === "Ok") {

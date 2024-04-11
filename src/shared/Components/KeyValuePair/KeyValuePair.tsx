@@ -11,7 +11,7 @@ const KeyValuePair = ({
   data,
   status,
 }: {
-  data: Array<string | number>;
+  data: Array<string | number | Date>;
   status: string;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -36,7 +36,7 @@ const KeyValuePair = ({
       {isPurposeEditable && isEditing ? (
         <Grid container>
           <TextAreaField
-            data={[headingFormatter(data[0] as string), data[1]]}
+            data={[headingFormatter(data[0] as string), data[1] as string]}
             updateIsEditting={updateIsEditting}
           />
         </Grid>
@@ -60,7 +60,7 @@ const KeyValuePair = ({
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="subtitle1">{data[1]}</Typography>
+            <Typography variant="subtitle1">{data[1] as string}</Typography>
           </Grid>
         </Grid>
       )}

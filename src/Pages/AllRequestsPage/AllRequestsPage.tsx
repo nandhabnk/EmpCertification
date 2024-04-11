@@ -11,9 +11,11 @@ import RequestTable from "./Components/RequestTable";
 
 import { RequestState } from "../../shared/types/requestDetails";
 import BackdropOverlay from "../../shared/Components/BackdropOverlay";
+import { apiKey } from "../../shared/contants";
+
+import ErrorComponent from "../../shared/Components/ErrorComponent";
 
 import * as Styled from "./AllRequestsPage.style";
-import ErrorComponent from "../../shared/Components/ErrorComponent";
 
 const AllRequestsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +33,7 @@ const AllRequestsPage = () => {
       setIsLoading(true);
       try {
         const response = await axios(
-          "https://zalexinc.azure-api.net/request-list?subscription-key=43b647491f1d436cb0130a329fcdca50"
+          `https://zalexinc.azure-api.net/request-list?subscription-key=${apiKey}`
         );
         dispatch(requestActions.updateAllReq(response.data));
         setIsLoading(false);
