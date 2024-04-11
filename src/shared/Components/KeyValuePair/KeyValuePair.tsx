@@ -53,7 +53,7 @@ const KeyValuePair = ({
               {isPurposeEditable && (
                 <Grid item>
                   <Button onClick={() => updateIsEditting(true)}>
-                    <EditIcon />
+                    Edit <EditIcon />
                   </Button>
                 </Grid>
               )}

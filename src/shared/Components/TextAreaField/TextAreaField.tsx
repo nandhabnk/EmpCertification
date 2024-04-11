@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 
-import { Button, ButtonGroup } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 
 import InfoIcon from "@mui/icons-material/Info";
 
@@ -39,7 +39,7 @@ const TextAreaField = ({
     const textAreaError = errors.purpose;
     if (textAreaError?.type === "required") return textAreaError.message;
     else if (textAreaError?.type === "minLength")
-      return "The purpose field should have a minimum of 50 characters";
+      return "Purpose field should have a minimum of 50 characters";
     return "";
   };
 
@@ -56,17 +56,17 @@ const TextAreaField = ({
             size="md"
             sx={{ minWidth: 300 }}
             {...register("purpose", {
-              required: "The purpose field is required",
+              required: "Purpose field is required",
               minLength: 5,
             })}
           />
-          {errors && (
+          {errors?.purpose && (
             <FormHelperText>
               <InfoIcon />
               {fieldErrors()}
             </FormHelperText>
           )}
-          <ButtonGroup aria-label="Basic button group">
+          <Stack direction="row" justifyContent="space-between" padding={2}>
             <Button variant="contained" type="submit" color="success">
               Save
             </Button>
@@ -77,7 +77,7 @@ const TextAreaField = ({
             >
               Cancel
             </Button>
-          </ButtonGroup>
+          </Stack>
         </FormControl>
       </form>
     </Styled.TextAreaFieldWrapper>

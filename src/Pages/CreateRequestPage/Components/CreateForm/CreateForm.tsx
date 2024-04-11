@@ -66,11 +66,11 @@ const CreateRequestPage = () => {
     else {
       switch (fieldId) {
         case "address_to":
-          return "The Address to field only accepts alphanumeric value";
+          return "Address to field only accepts alphanumeric value";
         case "purpose":
-          return "The purpose field should have a minimum of 50 characters";
+          return "Purpose field should have a minimum of 50 characters";
         case "employee_id":
-          return "The Employee ID field only accepts numeric value";
+          return "Employee ID field only accepts numeric value";
         default:
           return "";
       }
@@ -89,7 +89,7 @@ const CreateRequestPage = () => {
           size="md"
           sx={{ minWidth: 400 }}
           {...register("address_to", {
-            required: "This Address to field is required",
+            required: "Address to field is required",
             pattern: /^[a-zA-Z0-9]+$/,
           })}
         />
@@ -110,7 +110,7 @@ const CreateRequestPage = () => {
           size="md"
           sx={{ minWidth: 400 }}
           {...register("purpose", {
-            required: "The Purpose field is required",
+            required: "Purpose field is required",
             minLength: 5,
           })}
         />
@@ -130,7 +130,7 @@ const CreateRequestPage = () => {
           type="date"
           id="issued_on"
           {...register("issued_on", {
-            required: "The Issued on field is required",
+            required: "Issued on field is required",
             onChange: (e) => onDateChange(e.target.value),
           })}
         />
@@ -148,7 +148,7 @@ const CreateRequestPage = () => {
         <Input
           id="employee_id"
           {...register("employee_id", {
-            required: "The Employee ID field is required",
+            required: "Employee ID field is required",
             pattern: /^\d+$/,
           })}
         />

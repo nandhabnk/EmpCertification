@@ -74,9 +74,9 @@ const RequestTable = () => {
             textAlign={"center"}
             id="request-table-heading"
           >
-            All requests
+            Requests List
           </Typography>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 650 }}>
             <TableHead>
               <TableRow>
                 {tableHeadings.map((heading) => (

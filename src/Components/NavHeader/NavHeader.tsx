@@ -21,12 +21,12 @@ const NavHeader = () => {
             </MenuItem>
             <MenuItem onClick={() => navigateTo("/createRequest")}>
               <Typography variant="h6" component="div">
-                Create Request
+                Request Certificate
               </Typography>
             </MenuItem>
             <MenuItem onClick={() => navigateTo("/allRequests")}>
               <Typography variant="h6" component="div">
-                All Requests
+                Requests List
               </Typography>
             </MenuItem>
           </Toolbar>

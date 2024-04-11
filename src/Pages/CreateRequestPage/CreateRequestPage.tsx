@@ -19,7 +19,7 @@ const CreateRequestPage = () => {
             textAlign={"center"}
             id="create-request-heading"
           >
-            Create request
+            Request Certificate
           </Typography>
           <CardContent>
             <CreateForm />
