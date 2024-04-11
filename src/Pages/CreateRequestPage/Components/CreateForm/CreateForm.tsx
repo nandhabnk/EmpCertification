@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import axios from "axios";
-
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import {
@@ -16,6 +14,8 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import { Button, Stack } from "@mui/material";
 
+import { RequestBody } from "../../../../shared/types/requestDetails";
+
 type Inputs = {
   address_to: string;
   purpose: string;
@@ -23,7 +23,11 @@ type Inputs = {
   employee_id: string;
 };
 
-const CreateRequestPage = () => {
+const CreateRequestPage = ({
+  requestCertificate,
+}: {
+  requestCertificate: (reqBody: RequestBody) => Promise<void>;
+}) => {
   const [isDateValid, setIsDateValid] = useState(false);
 
   const onDateChange = (date: string) => {
@@ -45,18 +49,9 @@ const CreateRequestPage = () => {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (isDateValid) {
-      const resBody = data;
-      resBody.issued_on = formatDate(data.issued_on);
-      try {
-        const response = await axios.post(
-          "https://zalexinc.azure-api.net/request-certificate?subscription-key=43b647491f1d436cb0130a329fcdca50",
-          resBody
-        );
-        if (response.data.responce === "Ok")
-          console.log("@#@# RESPONSE.data", response.data);
-      } catch (err) {
-        console.log("@#@# err", err);
-      }
+      const reqBody = data;
+      reqBody.issued_on = formatDate(data.issued_on);
+      requestCertificate(reqBody);
     }
   };
 
@@ -160,8 +155,8 @@ const CreateRequestPage = () => {
         )}
       </FormControl>
       <Stack direction="row" justifyContent="space-between" padding={2}>
-        <Button variant="contained" color="error" onClick={() => {}}>
-          Discard
+        <Button variant="contained" color="error" type="reset">
+          Reset
         </Button>
         <Button variant="contained" type="submit" color="success">
           Save

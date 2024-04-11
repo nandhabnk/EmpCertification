@@ -6,7 +6,7 @@ import WarningIcon from "@mui/icons-material/Warning";
 
 import * as Styled from "./ErrorComponent.style";
 
-const ErrorComponent = () => {
+const ErrorComponent = ({ type = "" }: { type?: string }) => {
   const navigate = useNavigate();
 
   return (
@@ -18,14 +18,26 @@ const ErrorComponent = () => {
         justifyContent="center"
       >
         <Card variant="outlined">
-          <Typography variant="h3" component="h2" textAlign={"center"}>
+          <Typography variant="h4" component="h2" textAlign={"center"}>
             <WarningIcon fontSize="large" sx={{ color: "#ff4545" }} />
-            404: Page not found
+            {type === "unknown"
+              ? "Something went wrong. Please try again"
+              : "404: Page not found"}
           </Typography>
           <Stack direction="row" spacing={2}>
-            <Button variant="contained" onClick={() => navigate("/home")}>
-              HOME
-            </Button>
+            {type === "unknown" ? (
+              <Button
+                variant="contained"
+                onClick={() => window.location.reload()}
+              >
+                Retry
+              </Button>
+            ) : (
+              <Button variant="contained" onClick={() => navigate("/home")}>
+                HOME
+              </Button>
+            )}
+
             <Button variant="contained" onClick={() => navigate(-1)}>
               Back
             </Button>

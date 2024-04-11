@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import ErrorComponent from "./Components/ErrorComponent";
-import NavHeader from "./Components/NavHeader";
+import ErrorComponent from "./shared/Components/ErrorComponent";
+import NavHeader from "./shared/Components/NavHeader";
 
 import HomePage from "./Pages/HomePage";
 import CreateRequestPage from "./Pages/CreateRequestPage";

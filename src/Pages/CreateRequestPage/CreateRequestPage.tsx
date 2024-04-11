@@ -1,9 +1,42 @@
-import { Card, CardContent, Grid, Typography } from "@mui/material";
+import axios from "axios";
 
-import * as Styled from "./CreateRequestPage.style";
+import { Alert, Card, CardContent, Grid, Typography } from "@mui/material";
+
+import CheckIcon from "@mui/icons-material/Check";
+
 import CreateForm from "./Components/CreateForm";
 
+import { RequestBody } from "../../shared/types/requestDetails";
+
+import * as Styled from "./CreateRequestPage.style";
+import { useState } from "react";
+import BackdropOverlay from "../../shared/Components/BackdropOverlay";
+
 const CreateRequestPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isFailure, setIsFailure] = useState(false);
+
+  const requestCertificate = async (reqBody: RequestBody) => {
+    setIsSuccess(false);
+    setIsFailure(false);
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        "https://zalexinc.azure-api.net/request-certificate?subscription-key=43b647491f1d436cb0130a329fcdca50",
+        reqBody
+      );
+      if (response.data.responce === "Ok") {
+        setIsFailure(false);
+        setIsSuccess(true);
+        setIsLoading(false);
+      }
+    } catch (err) {
+      setIsFailure(true);
+      setIsSuccess(false);
+      setIsLoading(false);
+    }
+  };
   return (
     <Styled.CreateRequestPageWrapper>
       <Grid
@@ -22,10 +55,21 @@ const CreateRequestPage = () => {
             Request Certificate
           </Typography>
           <CardContent>
-            <CreateForm />
+            <CreateForm requestCertificate={requestCertificate} />
+            {(isSuccess || isFailure) && (
+              <Alert
+                icon={<CheckIcon fontSize="inherit" />}
+                severity={isSuccess ? "success" : "error"}
+              >
+                {isSuccess
+                  ? "Certificate succesfully requested!"
+                  : "Something went wrong! Please try again."}
+              </Alert>
+            )}
           </CardContent>
         </Card>
       </Grid>
+      <BackdropOverlay isLoading={isLoading} />
     </Styled.CreateRequestPageWrapper>
   );
 };

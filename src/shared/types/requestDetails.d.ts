@@ -6,6 +6,13 @@ export type RequestData = {
   status: string;
 };
 
+export type RequestBody = {
+  address_to: string;
+  purpose: string;
+  issued_on: string;
+  employee_id: string;
+};
+
 export type RequestState = {
   allRequests: Array<RequestData>;
   currentRequest: RequestData;
