@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 
 import { Button, Card, Grid, Stack, Typography } from "@mui/material";
 
+import WarningIcon from "@mui/icons-material/Warning";
+
 import * as Styled from "./ErrorComponent.style";
 
 const ErrorComponent = () => {
@@ -15,8 +17,9 @@ const ErrorComponent = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Card>
-          <Typography variant="h2" component="h2" textAlign={"center"}>
+        <Card variant="outlined">
+          <Typography variant="h3" component="h2" textAlign={"center"}>
+            <WarningIcon fontSize="large" sx={{ color: "#ff4545" }} />
             404: Page not found
           </Typography>
           <Stack direction="row" spacing={2}>

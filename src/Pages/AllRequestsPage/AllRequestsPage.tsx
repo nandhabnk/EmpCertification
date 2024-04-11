@@ -1,8 +1,31 @@
-import { Grid, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import axios from "axios";
+
+import { Grid } from "@mui/material";
+
+import RequestTable from "./Components/RequestTable";
 
 import * as Styled from "./AllRequestsPage.style";
 
 const AllRequestsPage = () => {
+  const [allRequests, setAllRequests] = useState();
+
+  useEffect(() => {
+    const fetchRequests = async () => {
+      try {
+        const response = await axios(
+          "https://zalexinc.azure-api.net/request-list?subscription-key=43b647491f1d436cb0130a329fcdca50"
+        );
+        setAllRequests(response.data);
+      } catch (err) {
+        console.log("@#@# err", err);
+      }
+    };
+
+    fetchRequests();
+  }, []);
+
   return (
     <Styled.AllRequestsPageWrapper>
       <Grid
@@ -11,9 +34,7 @@ const AllRequestsPage = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="h2" component="h2" textAlign={"center"}>
-          All Requests (Work in progress 🚧)
-        </Typography>
+        {allRequests && <RequestTable tableData={allRequests} />}
       </Grid>
     </Styled.AllRequestsPageWrapper>
   );

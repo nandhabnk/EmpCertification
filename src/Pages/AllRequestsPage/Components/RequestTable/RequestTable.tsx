@@ -1,0 +1,112 @@
+import { useState } from "react";
+
+import {
+  Button,
+  Grid,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Modal,
+} from "@mui/material";
+
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
+import RequestDetails from "../RequestDetails";
+
+import { RequestData } from "../../../../shared/types/requestDetails";
+
+import * as Styled from "./RequestTable.style";
+
+const RequestTable = ({ tableData }: { tableData: Array<RequestData> }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentRequest, setCurrentRequest] = useState({});
+
+  const tableHeadings = [
+    "Reference No.",
+    "Address to",
+    "Purpose",
+    "Issued on",
+    "Status",
+  ];
+
+  const handleOpenDetails = (row: RequestData) => {
+    setCurrentRequest(row);
+    setIsOpen(true);
+  };
+
+  const handleCloseDetails = () => {
+    setIsOpen(false);
+  };
+
+  const getModal = () => {
+    if (Object.keys(currentRequest).length > 0) {
+      return (
+        <Modal open={isOpen} onClose={handleCloseDetails}>
+          <RequestDetails currentRequest={currentRequest as RequestData} />
+        </Modal>
+      );
+    }
+  };
+
+  return (
+    <Styled.RequestTableWrapper>
+      <Grid container alignItems="center" justifyContent="center">
+        <TableContainer component={Paper}>
+          <Typography
+            variant="h4"
+            component="h2"
+            textAlign={"center"}
+            id="request-table-heading"
+          >
+            All requests
+          </Typography>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                {tableHeadings.map((heading) => (
+                  <TableCell>{heading}</TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tableData.map((row) => (
+                <TableRow
+                  key={row.reference_no}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.reference_no}
+                  </TableCell>
+                  <TableCell>{row.address_to}</TableCell>
+                  <TableCell>{row.purpose}</TableCell>
+                  <TableCell>{row.issued_on}</TableCell>
+                  <TableCell>
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      {row.status}
+                      <Button onClick={() => handleOpenDetails(row)}>
+                        <VisibilityIcon />
+                      </Button>
+                    </Stack>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {getModal()}
+      </Grid>
+    </Styled.RequestTableWrapper>
+  );
+};
+
+export default RequestTable;
