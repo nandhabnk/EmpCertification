@@ -87,7 +87,7 @@ const RequestTable = () => {
             <TableBody>
               {allRequests.map((row: RequestData) => (
                 <TableRow
-                  key={row.reference_no + row.issued_on}
+                  key={row.reference_no + row.status}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">

@@ -38,7 +38,7 @@ const RequestDetails = () => {
             <Grid item xs={6}>
               {Object.entries(currentRequest).map((data) => (
                 <div key={data[0]}>
-                  <KeyValuePair data={data} />
+                  <KeyValuePair data={data} status={currentRequest.status} />
                   <Divider />
                 </div>
               ))}

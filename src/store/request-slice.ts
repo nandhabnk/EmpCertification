@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RequestData } from "../shared/types/requestDetails";
+import { RequestData, RequestState } from "../shared/types/requestDetails";
 
-const initialRequestState = { allRequests: [], currentRequest: {} };
+const initialRequestState = {
+  allRequests: [],
+  currentRequest: {},
+} as unknown as RequestState;
 
 const requestSlice = createSlice({
   name: "requestSlice",
@@ -23,6 +26,15 @@ const requestSlice = createSlice({
         return { reference_no, address_to, purpose, ...issuedOn, status };
       };
       state.currentRequest = sortedCurrentRequest(action.payload);
+    },
+    updateDetail(state, action) {
+      state.currentRequest = { ...state.currentRequest, ...action.payload };
+      state.allRequests = state.allRequests.map((req) => {
+        if (req.reference_no === state.currentRequest.reference_no) {
+          return state.currentRequest;
+        }
+        return req;
+      });
     },
   },
 });
