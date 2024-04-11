@@ -70,14 +70,14 @@ const RequestTable = ({ tableData }: { tableData: Array<RequestData> }) => {
             <TableHead>
               <TableRow>
                 {tableHeadings.map((heading) => (
-                  <TableCell>{heading}</TableCell>
+                  <TableCell key={heading}>{heading}</TableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
               {tableData.map((row) => (
                 <TableRow
-                  key={row.reference_no}
+                  key={row.reference_no + row.issued_on}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">

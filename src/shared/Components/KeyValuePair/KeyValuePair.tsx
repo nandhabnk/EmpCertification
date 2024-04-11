@@ -3,7 +3,6 @@ import { Grid, Typography } from "@mui/material";
 import * as Styled from "./KeyValuePair.style";
 
 const KeyValuePair = ({ data }: { data: Array<string | number> }) => {
-  console.log("@#@DATA", data);
   const headingFormatter = (heading: string) => {
     return heading
       .replace("_", " ")
@@ -15,13 +14,18 @@ const KeyValuePair = ({ data }: { data: Array<string | number> }) => {
   return (
     <Styled.KeyValuePairWrapper>
       <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Typography variant="h6">
+        <Grid item xs={4}>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              fontWeight: "bold",
+            }}
+          >
             {headingFormatter(data[0] as string)}:
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="h6">{data[1]}</Typography>
+          <Typography variant="subtitle1">{data[1]}</Typography>
         </Grid>
       </Grid>
     </Styled.KeyValuePairWrapper>
