@@ -38,6 +38,7 @@ const CreateRequestPage = () => {
       setIsFailure(true);
       setIsSuccess(false);
       setIsLoading(false);
+      console.error("ERROR:", err);
     }
   };
   return (

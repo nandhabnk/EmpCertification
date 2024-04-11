@@ -40,7 +40,7 @@ const AllRequestsPage = () => {
       } catch (err) {
         setIsLoading(false);
         setIsFailure(true);
-        console.log("@#@# err", err);
+        console.error("ERROR:", err);
       }
     };
 

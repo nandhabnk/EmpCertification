@@ -65,7 +65,6 @@ const RequestTable = () => {
       });
     }
 
-    console.log("@#@# SORTED AF", sorted);
     return sorted.map((request: RequestData) => {
       return {
         ...request,

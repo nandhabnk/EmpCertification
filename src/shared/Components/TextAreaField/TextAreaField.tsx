@@ -57,7 +57,7 @@ const TextAreaField = ({
             sx={{ minWidth: 300 }}
             {...register("purpose", {
               required: "Purpose field is required",
-              minLength: 5,
+              minLength: 50,
             })}
           />
           {errors?.purpose && (

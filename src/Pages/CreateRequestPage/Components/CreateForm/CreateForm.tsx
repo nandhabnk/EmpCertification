@@ -106,7 +106,7 @@ const CreateRequestPage = ({
           sx={{ minWidth: 400 }}
           {...register("purpose", {
             required: "Purpose field is required",
-            minLength: 5,
+            minLength: 50,
           })}
         />
         {errors?.purpose && (
