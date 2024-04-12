@@ -35,6 +35,7 @@ import { tableHeadings } from "../../../../shared/contants";
 import { requestActions } from "../../../../store/request-slice";
 
 import * as Styled from "./RequestTable.style";
+import RequestsSummary from "../RequestsSummary";
 
 const RequestTable = () => {
   const { allRequests, currentRequest } = useSelector(
@@ -109,16 +110,19 @@ const RequestTable = () => {
           >
             Requests List
           </Typography>
-          <Box
-            sx={{ display: "flex", alignItems: "flex-end", padding: "10px" }}
-          >
-            <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              label="Table search"
-              variant="standard"
-              onChange={(e) => setFitlerText(e.target.value)}
-            />
-          </Box>
+          <Stack direction="row" justifyContent="space-between">
+            <Box
+              sx={{ display: "flex", alignItems: "flex-end", padding: "10px" }}
+            >
+              <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <TextField
+                label="Table search"
+                variant="standard"
+                onChange={(e) => setFitlerText(e.target.value)}
+              />
+            </Box>
+            <RequestsSummary allRequests={allRequests} />
+          </Stack>
           <Table sx={{ minWidth: 650 }}>
             <TableHead>
               <TableRow>

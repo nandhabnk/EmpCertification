@@ -29,3 +29,7 @@ export const filterData = (text: string, requestArr: Array<RequestData>) => {
   });
   return filteredRequest;
 };
+
+export const capitalizeWords = (text: string) => {
+  return text.replace(/(^\w|\s\w)/g, (match) => match.toUpperCase());
+};

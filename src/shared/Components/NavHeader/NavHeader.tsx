@@ -23,7 +23,7 @@ const NavHeader = () => {
       <Box>
         <AppBar position="static">
           <Toolbar>
-            <MenuItem onClick={() => navigateTo("/home")}>
+            <MenuItem onClick={() => navigateTo("/home")} id="home-icon">
               <HomeIcon />
               Zalex Inc.
             </MenuItem>
