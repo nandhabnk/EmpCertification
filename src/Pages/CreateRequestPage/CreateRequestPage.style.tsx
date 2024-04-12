@@ -10,5 +10,10 @@ export const CreateRequestPageWrapper = styled.div`
     .MuiFormControl-root {
       padding: 5px;
     }
+    #create-req-btn-grp {
+      .MuiButton-root {
+        width: 8rem;
+      }
+    }
   }
 `;

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const TextAreaFieldWrapper = styled.div`
-  .MuiButtonGroup-root {
-    justify-content: flex-end;
-    padding: 10px;
+  #update-purpose-btn-grp {
+    .MuiButton-root {
+      width: 8rem;
+    }
   }
 `;

@@ -154,7 +154,12 @@ const CreateRequestPage = ({
           </FormHelperText>
         )}
       </FormControl>
-      <Stack direction="row" justifyContent="space-between" padding={2}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        padding={2}
+        id="create-req-btn-grp"
+      >
         <Button variant="contained" color="error" type="reset">
           Reset
         </Button>

@@ -8,7 +8,4 @@ export const RequestTableWrapper = styled.div`
     background-color: #1976d2;
     color: #fff;
   }
-  .MuiPaper-root {
-    width: 60rem;
-  }
 `;

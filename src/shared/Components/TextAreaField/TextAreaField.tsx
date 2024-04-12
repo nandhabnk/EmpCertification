@@ -66,7 +66,12 @@ const TextAreaField = ({
               {fieldErrors()}
             </FormHelperText>
           )}
-          <Stack direction="row" justifyContent="space-between" padding={2}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            padding={2}
+            id="update-purpose-btn-grp"
+          >
             <Button variant="contained" type="submit" color="success">
               Save
             </Button>

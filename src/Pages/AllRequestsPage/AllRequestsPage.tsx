@@ -5,8 +5,6 @@ import axios from "axios";
 
 import { requestActions } from "../../store/request-slice";
 
-import { Grid } from "@mui/material";
-
 import RequestTable from "./Components/RequestTable";
 
 import { RequestState } from "../../shared/types/requestDetails";
@@ -14,8 +12,6 @@ import BackdropOverlay from "../../shared/Components/BackdropOverlay";
 import { apiKey } from "../../shared/contants";
 
 import ErrorComponent from "../../shared/Components/ErrorComponent";
-
-import * as Styled from "./AllRequestsPage.style";
 
 const AllRequestsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -48,21 +44,14 @@ const AllRequestsPage = () => {
   }, []);
 
   return (
-    <Styled.AllRequestsPageWrapper>
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-      >
-        {isFailure ? (
-          <ErrorComponent type={"unknown"} />
-        ) : (
-          allRequests && !isLoading && <RequestTable />
-        )}
-      </Grid>
+    <>
+      {isFailure ? (
+        <ErrorComponent type={"unknown"} />
+      ) : (
+        allRequests && !isLoading && <RequestTable />
+      )}
       <BackdropOverlay isLoading={isLoading} />
-    </Styled.AllRequestsPageWrapper>
+    </>
   );
 };
 
