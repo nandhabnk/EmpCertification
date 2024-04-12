@@ -33,6 +33,13 @@ const KeyValuePair = ({
 
   return (
     <Styled.KeyValuePairWrapper>
+      {isPurposeEditable && !isEditing && (
+        <Grid item id="edit-btn-grid">
+          <Button onClick={() => updateIsEditting(true)}>
+            Edit <EditIcon />
+          </Button>
+        </Grid>
+      )}
       {isPurposeEditable && isEditing ? (
         <Grid container>
           <TextAreaField
@@ -50,13 +57,6 @@ const KeyValuePair = ({
               }}
             >
               {headingFormatter(data[0] as string)}:
-              {isPurposeEditable && (
-                <Grid item>
-                  <Button onClick={() => updateIsEditting(true)}>
-                    Edit <EditIcon />
-                  </Button>
-                </Grid>
-              )}
             </Typography>
           </Grid>
           <Grid item>

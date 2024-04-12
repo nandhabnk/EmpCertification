@@ -42,6 +42,7 @@ const RequestDetails = () => {
             container
             flexDirection="row"
             justifyContent="space-around"
+            alignItems="flex-start"
             padding={"10px"}
           >
             <Grid item xs={6}>
