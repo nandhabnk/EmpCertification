@@ -30,7 +30,7 @@ const HomePage = () => {
         </Stack>
         <Stack
           direction="row"
-          justifyContent="space-around"
+          justifyContent="space-evenly"
           spacing={2}
           id="home-button-grp"
         >
