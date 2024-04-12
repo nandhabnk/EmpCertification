@@ -13,8 +13,9 @@ import { apiKey } from "../../shared/contants";
 
 import BackdropOverlay from "../../shared/Components/BackdropOverlay";
 
-import * as Styled from "./CreateRequestPage.style";
+import { toast } from "react-toastify";
 
+import * as Styled from "./CreateRequestPage.style";
 const CreateRequestPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -39,11 +40,18 @@ const CreateRequestPage = () => {
         setIsFailure(false);
         setIsSuccess(true);
         setIsLoading(false);
+        toast.success("The certificate request is successfully created!", {
+          toastId: "request created successfully",
+        });
       }
     } catch (err) {
       setIsFailure(true);
       setIsSuccess(false);
       setIsLoading(false);
+      toast.error(
+        "Something went wrong during the certificate request! Please try again",
+        { toastId: "request created failed" }
+      );
       console.error("ERROR:", err);
     }
   };

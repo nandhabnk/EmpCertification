@@ -10,6 +10,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import { requestActions } from "../../../store/request-slice";
 
+import { toast } from "react-toastify";
+
 import * as Styled from "./TextAreaField.style";
 
 type Inputs = {
@@ -33,6 +35,9 @@ const TextAreaField = ({
   const onSubmit: SubmitHandler<Inputs> = (fieldData) => {
     dispatch(requestActions.updateDetail(fieldData));
     updateIsEditting(false);
+    toast.success("Purpose field is succesfully updated!", {
+      toastId: "update success",
+    });
   };
 
   const fieldErrors = () => {

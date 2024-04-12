@@ -10,6 +10,9 @@ import HomePage from "./Pages/HomePage";
 import CreateRequestPage from "./Pages/CreateRequestPage";
 import AllRequestsPage from "./Pages/AllRequestsPage";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import store from "./store";
 
 const Layout = () => {
@@ -50,6 +53,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>

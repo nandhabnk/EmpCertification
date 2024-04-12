@@ -99,7 +99,7 @@ const CreateRequestPage = ({
         )}
       </FormControl>
       <FormControl error={errors.purpose ? true : false}>
-        <FormLabel>Purpose</FormLabel>
+        <FormLabel>Purpose:</FormLabel>
         <Textarea
           id="purpose"
           placeholder="Placeholder"
@@ -122,7 +122,7 @@ const CreateRequestPage = ({
       <FormControl
         error={errors.issued_on || (isSubmitted && !isDateValid) ? true : false}
       >
-        <FormLabel>Issued on</FormLabel>
+        <FormLabel>Issued on:</FormLabel>
         <Input
           min={new Date()}
           type="date"
@@ -142,7 +142,7 @@ const CreateRequestPage = ({
         )}
       </FormControl>
       <FormControl error={errors.employee_id ? true : false}>
-        <FormLabel>Employee ID</FormLabel>
+        <FormLabel>Employee ID:</FormLabel>
         <Input
           id="employee_id"
           {...register("employee_id", {
@@ -167,7 +167,7 @@ const CreateRequestPage = ({
           Reset
         </Button>
         <Button variant="contained" type="submit" color="success">
-          Save
+          Submit
         </Button>
       </Stack>
     </form>
