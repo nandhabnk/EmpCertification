@@ -9,7 +9,6 @@ import CheckIcon from "@mui/icons-material/Check";
 import CreateForm from "./Components/CreateForm";
 
 import { RequestBody } from "../../shared/types/requestDetails";
-import { apiKey } from "../../shared/contants";
 
 import BackdropOverlay from "../../shared/Components/BackdropOverlay";
 
@@ -33,7 +32,7 @@ const CreateRequestPage = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/request-certificate`,
-        { reqBody, apiKey }
+        reqBody
       );
       if (response.data.responce === "Ok") {
         reset();

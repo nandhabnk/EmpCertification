@@ -9,8 +9,6 @@ import RequestTable from "./Components/RequestTable";
 
 import { RequestState } from "../../shared/types/requestDetails";
 import BackdropOverlay from "../../shared/Components/BackdropOverlay";
-import { apiKey } from "../../shared/contants";
-
 import ErrorComponent from "../../shared/Components/ErrorComponent";
 
 const AllRequestsPage = () => {
@@ -28,9 +26,8 @@ const AllRequestsPage = () => {
       setIsFailure(false);
       setIsLoading(true);
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/request-list`,
-          { params: { apiKey } }
+        const response = await axios(
+          `${import.meta.env.VITE_API_URL}/request-list`
         );
         dispatch(requestActions.updateAllReq(response.data));
         setIsLoading(false);
