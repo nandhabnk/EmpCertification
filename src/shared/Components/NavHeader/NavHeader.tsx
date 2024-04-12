@@ -32,14 +32,12 @@ const NavHeader = () => {
                 Request Certificate
               </Typography>
             </MenuItem>
-            <MenuItem
-              sx={{ flexGrow: 1 }}
-              onClick={() => navigateTo("/allRequests")}
-            >
+            <MenuItem onClick={() => navigateTo("/allRequests")}>
               <Typography variant="h6" component="div">
                 Requests List
               </Typography>
             </MenuItem>
+            <MenuItem sx={{ flexGrow: 1 }} id="hidden-nav"></MenuItem>
             <MenuItem>Nandha Kumar B</MenuItem>
             <MenuItem>
               <Avatar alt="username" />

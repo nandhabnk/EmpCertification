@@ -8,4 +8,7 @@ export const NavWrapper = styled.div`
       transform: translate(0, -2.5px);
     }
   }
+  #hidden-nav {
+    pointer-events: none;
+  }
 `;
