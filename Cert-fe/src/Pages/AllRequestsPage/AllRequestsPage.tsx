@@ -28,8 +28,9 @@ const AllRequestsPage = () => {
       setIsFailure(false);
       setIsLoading(true);
       try {
-        const response = await axios(
-          `${import.meta.env.VITE_API_URL}/request-list`
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/request-list`,
+          { params: { apiKey } }
         );
         dispatch(requestActions.updateAllReq(response.data));
         setIsLoading(false);

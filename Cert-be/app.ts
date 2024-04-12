@@ -17,14 +17,13 @@ app.get("/", (request: Request, response: Response) => {
 
 app.get("/request-list", async (request: Request, response: Response) => {
   try {
+    const { apiKey } = request.query;
     const result = await axios.get(
-      "https://zalexinc.azure-api.net/request-list?subscription-key=43b647491f1d436cb0130a329fcdca50"
-    ); // replace with your API endpoint
+      `https://zalexinc.azure-api.net/request-list?subscription-key=${apiKey}`
+    );
     response.status(200).send(result.data);
   } catch (error) {
-    response
-      .status(500)
-      .send("Something went wrong while fetching request-list");
+    response.status(500).send("Something went wrong while creating request");
   }
 });
 
@@ -32,22 +31,23 @@ app.post(
   "/request-certificate",
   async (request: Request, response: Response) => {
     try {
-      const { address_to, purpose, issued_on, employee_id } = request.body;
+      const { reqBody, apiKey } = request.body;
+      const { address_to, purpose, issued_on, employee_id } = reqBody;
       if (!address_to || !purpose || !issued_on || !employee_id) {
         response.status(400).send("Missing required fields");
         return;
       }
       const postData = { address_to, purpose, issued_on, employee_id };
       const result = await axios.post(
-        "https://zalexinc.azure-api.net/request-certificate?subscription-key=43b647491f1d436cb0130a329fcdca50",
+        `https://zalexinc.azure-api.net/request-certificate?subscription-key=${apiKey}`,
         postData
-      ); // replace with your API endpoint
+      );
       response.status(200).send(result.data);
     } catch (error) {
       console.log(error);
       response
         .status(500)
-        .send("Something went wrong while fetching request-cert");
+        .send("Something went wrong while fetching request certificates");
     }
   }
 );

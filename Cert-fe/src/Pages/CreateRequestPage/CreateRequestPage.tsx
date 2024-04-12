@@ -31,7 +31,7 @@ const CreateRequestPage = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/request-certificate`,
-        reqBody
+        { reqBody, apiKey }
       );
       if (response.data.responce === "Ok") {
         setIsFailure(false);
