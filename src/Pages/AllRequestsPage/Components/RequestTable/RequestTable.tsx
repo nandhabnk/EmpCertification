@@ -13,11 +13,12 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Modal,
   TableSortLabel,
   TextField,
   Box,
 } from "@mui/material";
+
+import { Modal } from "@mui/joy";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import SearchIcon from "@mui/icons-material/Search";

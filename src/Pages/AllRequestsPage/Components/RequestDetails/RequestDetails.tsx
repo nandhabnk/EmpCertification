@@ -12,6 +12,7 @@ import KeyValuePair from "../../../../shared/Components/KeyValuePair";
 import RequestPdfDoc from "../RequestPdfDoc";
 
 import * as Styled from "./RequestDetails.style";
+import { ModalClose } from "@mui/joy";
 
 const RequestDetails = () => {
   const { currentRequest } = useSelector(
@@ -36,6 +37,7 @@ const RequestDetails = () => {
           >
             Certificate request details
           </Typography>
+          <ModalClose variant="plain" sx={{ m: 1, color: "#ffff" }} />
           <Grid
             container
             flexDirection="row"

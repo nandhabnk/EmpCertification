@@ -20,4 +20,9 @@ export const RequestDetailsWrapper = styled.div`
     width: 300px;
     height: 460px;
   }
+  .MuiModalClose-root {
+    transform: translate(0px, -13px);
+    color: red;
+    background: white;
+  }
 `;
