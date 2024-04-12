@@ -53,6 +53,7 @@ const TextAreaField = ({
             defaultValue={data[1]}
             placeholder="Placeholder"
             minRows={3}
+            maxRows={6}
             size="md"
             sx={{ minWidth: 300 }}
             {...register("purpose", {

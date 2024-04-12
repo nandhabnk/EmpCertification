@@ -10,6 +10,8 @@ export const RequestDetailsWrapper = styled.div`
     min-height: 500px;
     background-color: #fff;
     border-radius: 10px;
+    max-height: 90vh;
+    overflow: auto;
   }
   #request-details-heading {
     background-color: #1976d2;
