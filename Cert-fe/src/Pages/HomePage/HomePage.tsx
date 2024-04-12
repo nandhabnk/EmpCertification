@@ -19,7 +19,10 @@ const HomePage = () => {
           <Typography variant="h2" component="h2" textAlign={"center"}>
             Zalex Certify
           </Typography>
-          <Typography variant="h6" component="h3">
+          <Typography variant="h5" component="h2" textAlign={"center"}>
+            Welcome to your One-Stop Shop for Employee Certifications
+          </Typography>
+          <Typography variant="h6" component="h3" textAlign="justify">
             Empowering employees and streamlining HR processes, Zalex Inc.
             introduces a new self-service platform for managing certificates of
             employment. This easy-to-use web app allows you to request,

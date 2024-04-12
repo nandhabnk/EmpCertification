@@ -25,4 +25,7 @@ export const RequestDetailsWrapper = styled.div`
     color: red;
     background: white;
   }
+  #no-certificate-card {
+    padding: 20px 10px;
+  }
 `;

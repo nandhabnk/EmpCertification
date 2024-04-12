@@ -28,7 +28,8 @@ const CreateRequestPage = ({
 }: {
   requestCertificate: (
     reqBody: RequestBody,
-    isDateValid: boolean
+    isDateValid: boolean,
+    reset: () => void
   ) => Promise<void>;
 }) => {
   const [isDateValid, setIsDateValid] = useState(false);
@@ -48,12 +49,13 @@ const CreateRequestPage = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitted },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const reqBody = data;
     reqBody.issued_on = formatDate(data.issued_on);
-    requestCertificate(reqBody, isDateValid);
+    requestCertificate(reqBody, isDateValid, reset);
   };
 
   const fieldErrors = (fieldId: string) => {

@@ -58,12 +58,18 @@ const RequestDetails = () => {
                   <RequestPdfDoc currentRequest={currentRequest} />
                 </PDFViewer>
               ) : (
-                <Stack alignItems="center">
-                  <InfoIcon fontSize="large" color="primary" />
-                  <Typography variant="h4" component="h2" textAlign={"center"}>
-                    Certificate is yet to be issued.
-                  </Typography>
-                </Stack>
+                <Card variant="outlined" id="no-certificate-card">
+                  <Stack alignItems="center">
+                    <InfoIcon fontSize="large" color="primary" />
+                    <Typography
+                      variant="h4"
+                      component="h2"
+                      textAlign={"center"}
+                    >
+                      Certificate is yet to be issued.
+                    </Typography>
+                  </Stack>
+                </Card>
               )}
             </Grid>
           </Grid>

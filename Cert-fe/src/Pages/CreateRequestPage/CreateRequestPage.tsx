@@ -22,7 +22,8 @@ const CreateRequestPage = () => {
 
   const requestCertificate = async (
     reqBody: RequestBody,
-    isDateValid: boolean
+    isDateValid: boolean,
+    reset: () => void
   ) => {
     setIsSuccess(false);
     setIsFailure(false);
@@ -34,6 +35,7 @@ const CreateRequestPage = () => {
         { reqBody, apiKey }
       );
       if (response.data.responce === "Ok") {
+        reset();
         setIsFailure(false);
         setIsSuccess(true);
         setIsLoading(false);
