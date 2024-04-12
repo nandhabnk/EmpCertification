@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  client:
+    container_name: cert-fe
+    build:
+      context: ./Cert-fe
+      dockerfile: Dockerfile
+    stdin_open: true
+    ports:
+      - 3000:3000
+    env_file: ./Cert-fe/.env
+    networks:
+      - cert-app-network
+    # env_file:
+  api:
+    container_name: cert-be
+    ports:
+      - 5000:5000
+    build:
+      context: ./Cert-be
+      dockerfile: Dockerfile
+    # Removed ports since it's accessed internally via Nginx, expose if needed for direct access
+    networks:
+      - cert-app-network
+
+networks:
+  cert-app-network:
+    name: cert-app-network
+    driver: bridge
