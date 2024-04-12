@@ -15,9 +15,12 @@ import {
   Typography,
   Modal,
   TableSortLabel,
+  TextField,
+  Box,
 } from "@mui/material";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import SearchIcon from "@mui/icons-material/Search";
 
 import RequestDetails from "../RequestDetails";
 
@@ -25,7 +28,7 @@ import {
   RequestData,
   RequestState,
 } from "../../../../shared/types/requestDetails";
-import { dateFormatter } from "../../../../shared/utils/tableUtils";
+import { dateFormatter, filterData } from "../../../../shared/utils/tableUtils";
 import { tableHeadings } from "../../../../shared/contants";
 
 import { requestActions } from "../../../../store/request-slice";
@@ -39,6 +42,7 @@ const RequestTable = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [orderBy, setOrderBy] = useState<keyof RequestData>("status");
   const [order, setOrder] = useState<"asc" | "desc" | undefined>("asc");
+  const [fitlerText, setFitlerText] = useState("");
 
   const dispatch = useDispatch();
 
@@ -104,6 +108,16 @@ const RequestTable = () => {
           >
             Requests List
           </Typography>
+          <Box
+            sx={{ display: "flex", alignItems: "flex-end", padding: "10px" }}
+          >
+            <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+            <TextField
+              label="Table search"
+              variant="standard"
+              onChange={(e) => setFitlerText(e.target.value)}
+            />
+          </Box>
           <Table sx={{ minWidth: 650 }}>
             <TableHead>
               <TableRow>
@@ -128,31 +142,33 @@ const RequestTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {sortedData.map((row: RequestData) => (
-                <TableRow
-                  key={row.reference_no + row.status}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.reference_no}
-                  </TableCell>
-                  <TableCell>{row.address_to}</TableCell>
-                  <TableCell>{row.purpose}</TableCell>
-                  <TableCell>{row.issued_on as string}</TableCell>
-                  <TableCell>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
-                      {row.status}
-                      <Button onClick={() => handleOpenDetails(row)}>
-                        <VisibilityIcon />
-                      </Button>
-                    </Stack>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {filterData(fitlerText.toLocaleLowerCase(), sortedData).map(
+                (row: RequestData) => (
+                  <TableRow
+                    key={row.reference_no + row.status}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.reference_no}
+                    </TableCell>
+                    <TableCell>{row.address_to}</TableCell>
+                    <TableCell>{row.purpose}</TableCell>
+                    <TableCell>{row.issued_on as string}</TableCell>
+                    <TableCell>
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="space-between"
+                      >
+                        {row.status}
+                        <Button onClick={() => handleOpenDetails(row)}>
+                          <VisibilityIcon />
+                        </Button>
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
+                )
+              )}
             </TableBody>
           </Table>
         </TableContainer>

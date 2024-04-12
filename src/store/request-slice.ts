@@ -14,7 +14,16 @@ const requestSlice = createSlice({
       state.allRequests = action.payload;
     },
     updateCurrentReq(state, action) {
-      state.currentRequest = action.payload;
+      const sortedCurrentRequest = ({
+        reference_no,
+        address_to,
+        purpose,
+        issued_on,
+        status,
+      }: RequestData) => {
+        return { reference_no, address_to, purpose, issued_on, status };
+      };
+      state.currentRequest = sortedCurrentRequest(action.payload);
     },
     updateDetail(state, action) {
       state.currentRequest = { ...state.currentRequest, ...action.payload };

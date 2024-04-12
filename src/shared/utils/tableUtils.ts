@@ -1,3 +1,5 @@
+import { RequestData } from "../types/requestDetails";
+
 export const dateFormatter = (date: Date) => {
   if (typeof date === "string") return date;
   const dd = date.getDate();
@@ -12,4 +14,18 @@ export const dateFormatter = (date: Date) => {
     yyyy;
 
   return formattedDate;
+};
+
+export const filterData = (text: string, requestArr: Array<RequestData>) => {
+  const regexPattern = new RegExp(text);
+  const filteredRequest = requestArr.filter((request) => {
+    if (
+      request.reference_no.toString() === text ||
+      request.status.toLocaleLowerCase() === text ||
+      regexPattern.test(request.address_to.toLocaleLowerCase())
+    ) {
+      return request;
+    }
+  });
+  return filteredRequest;
 };
