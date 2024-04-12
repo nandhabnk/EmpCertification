@@ -29,7 +29,7 @@ const AllRequestsPage = () => {
       setIsLoading(true);
       try {
         const response = await axios(
-          `https://zalexinc.azure-api.net/request-list?subscription-key=${apiKey}`
+          `${import.meta.env.VITE_API_URL}/request-list`
         );
         dispatch(requestActions.updateAllReq(response.data));
         setIsLoading(false);

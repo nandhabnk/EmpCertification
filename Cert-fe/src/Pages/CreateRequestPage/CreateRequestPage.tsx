@@ -20,13 +20,17 @@ const CreateRequestPage = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isFailure, setIsFailure] = useState(false);
 
-  const requestCertificate = async (reqBody: RequestBody) => {
+  const requestCertificate = async (
+    reqBody: RequestBody,
+    isDateValid: boolean
+  ) => {
     setIsSuccess(false);
     setIsFailure(false);
+    if (!isDateValid) return;
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `https://zalexinc.azure-api.net/request-certificate?subscription-key=${apiKey}`,
+        `${import.meta.env.VITE_API_URL}/request-certificate`,
         reqBody
       );
       if (response.data.responce === "Ok") {

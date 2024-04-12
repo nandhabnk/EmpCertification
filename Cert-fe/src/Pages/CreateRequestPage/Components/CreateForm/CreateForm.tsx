@@ -26,7 +26,10 @@ type Inputs = {
 const CreateRequestPage = ({
   requestCertificate,
 }: {
-  requestCertificate: (reqBody: RequestBody) => Promise<void>;
+  requestCertificate: (
+    reqBody: RequestBody,
+    isDateValid: boolean
+  ) => Promise<void>;
 }) => {
   const [isDateValid, setIsDateValid] = useState(false);
 
@@ -48,11 +51,9 @@ const CreateRequestPage = ({
     formState: { errors, isSubmitted },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    if (isDateValid) {
-      const reqBody = data;
-      reqBody.issued_on = formatDate(data.issued_on);
-      requestCertificate(reqBody);
-    }
+    const reqBody = data;
+    reqBody.issued_on = formatDate(data.issued_on);
+    requestCertificate(reqBody, isDateValid);
   };
 
   const fieldErrors = (fieldId: string) => {
